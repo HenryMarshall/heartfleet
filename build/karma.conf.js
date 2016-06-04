@@ -9,6 +9,7 @@ debug('Create configuration.')
 const karmaConfig = {
   basePath: '../', // project root in relation to bin/karma.js
   files: [
+    './node_modules/phantomjs-polyfill/bind-polyfill.js',
     {
       pattern: `./${config.dir_test}/test-bundler.js`,
       watched: false,
@@ -62,7 +63,7 @@ const karmaConfig = {
   }
 }
 
-if (config.globals.__COVERAGE__) {
+if (config.coverage_enabled) {
   karmaConfig.reporters.push('coverage')
   karmaConfig.webpack.module.preLoaders = [{
     test: /\.(js|jsx)$/,
