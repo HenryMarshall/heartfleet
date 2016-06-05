@@ -64,9 +64,9 @@ app.post('/postmate', function(req, res, next) {
 app.post('/twilio', function(req, res, next) {
 	twilio.sendMessage({
 
-	    to: '+13472245274', //req.body.number, // Any number Twilio can deliver to
+	    to: req.body.phoneNumber, // Any number Twilio can deliver to
 	    from: '+13343924205', // A number you bought from Twilio and can use for outbound communication
-	    body: 'Like A Boss' //req.body.AEDlink// body of the SMS message
+	    body: req.body.AEDlink// body of the SMS message
 
 	}, function(err, responseData) { //this function is executed when a response is received from Twilio
 

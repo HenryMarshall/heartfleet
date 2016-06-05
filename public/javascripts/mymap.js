@@ -93,7 +93,10 @@ require([
     $.ajax({
       url: "twilio",
       method: "POST",
-      data: {}
+      data: {
+        phoneNumber: "+13472245274",
+        AEDlink: "https://www.google.com"
+      }
     })
   })
 
