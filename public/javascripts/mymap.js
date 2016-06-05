@@ -67,7 +67,10 @@ require([
   var marker = new PictureMarkerSymbol("/images/aed.png", 37, 24)
   var renderer = new SimpleRenderer(marker);
   csv.setRenderer(renderer);
-  var template = new InfoTemplate("${name}", "${address}");
+  var template = new InfoTemplate(
+    "${name}", 
+    "${address}<button data-href='/aedLocations/${id}' class='btn btn-primary' id='send-location'>Send Location</button>"
+  );
   csv.setInfoTemplate(template);
   map.addLayer(csv);
 
@@ -98,10 +101,21 @@ require([
     }, 800)
   })
 
+  // zoom to address
   $("#address").on("submit", submitAddress)
-  $("#dispatch").on("click", submitAddress)
-
   function submitAddress(e) {
+    e.preventDefault()
+    var address = $("#address input").val().trim()
+    if (address) {
+      doSearchValue(address)
+    }
+    else {
+      console.error("Address is blank!")
+    }
+  }
+
+  // dispatch a postmate
+  $("#dispatch").on("click", function(e) {
     e.preventDefault()
     var address = $("#address input").val().trim()
     if (address) {
@@ -111,14 +125,25 @@ require([
     else {
       console.error("Address is blank!")
     }
-  }
+  })
 
-  $("#is-a-boss").on("click", function(e) {
+  $("#map").on("click", "#send-location", function(e) {
+    var href = $(this).attr("data-href")
     e.preventDefault()
     $.ajax({
       url: "twilio",
       method: "POST",
-      data: {}
+      data: {
+        phoneNumber: '+13472245274',
+        AEDlink: window.location.origin + href
+      },
+      success: function(response) {
+        console.log("success", response)
+      },
+      error: function(error) {
+        console.error("error", error)
+      }
+
     })
   })
 
