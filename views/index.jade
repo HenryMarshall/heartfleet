@@ -1,8 +1,21 @@
 extends layout
 
 block content
-  p #{quote.fee}
-  p #{quote.duration}
-  p #{quote.dropoff_eta}
-  p #{quote.kind}
-  p #{quote.id}
+  // h1= title
+  // p Welcome to #{title}
+  .row
+    .navbar.navbar-inverse.navbar-fixed-top
+      .container-fluid
+        form#address.navbar-form.navbar-left(role="search")
+          .form-group
+            input.form-control(type="text", 
+            placeholder="CALLER LOCATION")
+
+        span.navbar-brand.navbar-right
+          img(src="images/logo.png" alt="HeartFleet")
+  .row
+    #map-container
+      #map
+  .row
+    .dispatch-wrapper
+      button.btn.btn-primary.btn-block Dispatch!
