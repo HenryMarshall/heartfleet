@@ -36,21 +36,81 @@ a {
 .navbar {
   height: 60px;
 }
-.navbar-brand>img {
-  height: 32px;
-  display: inline-block;
+#address {
+  width: calc(100% - 450px);
+  transition: width 1s;
 }
-
+#address .form-group {
+  width: 100%;
+}
 #address input {
   background-color: transparent;
   -webkit-text-fill-color: white;
-  color: red;
+  color: #ED1C24;
   margin-top: 6px;
-  width: 450px;
+  /* width: 450px; */
   border-radius: 0;
   border: none;
   border-bottom: 1px solid white;
   outline: none !important;
   box-shadow: none !important;
+
+  width: 100%;
 }
 
+#address input:focus {
+  border-color: #ED1C24;
+}
+
+#address.wide {
+  width: calc(100% - 120px)
+}
+
+#logo {
+  display: inline-block;
+  opacity: 1;
+  transition: opacity 0.25s ease-in-out
+}
+
+.cloaked {
+  opacity: 0!important;
+}
+
+#logo img {
+  height: 32px;
+}
+
+#dispatch {
+  opacity: 1;
+  transition: opacity 0.50s ease-in-out;
+
+  position: fixed;
+  top: 16px;
+  right: 24px;
+}
+
+#dispatch img {
+  width: 72px;
+  height: 72px;
+
+  position: fixed;
+  top: 16px;
+  right: 32px;
+}
+
+#dispatch .circle {
+  width: 72px;
+  height: 72px;
+  background-color: #50E3C2;
+  border-radius: 36px;
+
+  position: fixed;
+  top: 16px;
+  right: 32px;
+}
+
+#dispatch p {
+  position: relative;
+  top: 68px;
+  left: 16px;
+}

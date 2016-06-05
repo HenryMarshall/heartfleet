@@ -81,12 +81,37 @@ require([
 
   search.startup();
 
-  $("#address").on("submit", function(e) {
-    e.preventDefault()
-    var address = $("#address input").val()
-    doSearchValue(address)
-    sendPostmate(address)
+  $("#address input").focus(function(e) {
+    $("#logo").addClass("cloaked")
+    $("#dispatch").removeClass("cloaked")
+    // wait until the fade completes
+    window.setTimeout(function() {
+      $("#address").addClass("wide")
+    }, 250)
   })
+
+  $("#address input").blur(function(e) {
+    $("#address").removeClass("wide")
+    $("#dispatch").addClass("cloaked")
+    window.setTimeout(function() {
+      $("#logo").removeClass("cloaked")
+    }, 800)
+  })
+
+  $("#address").on("submit", submitAddress)
+  $("#dispatch").on("click", submitAddress)
+
+  function submitAddress(e) {
+    e.preventDefault()
+    var address = $("#address input").val().trim()
+    if (address) {
+      doSearchValue(address)
+      sendPostmate(address)
+    }
+    else {
+      console.error("Address is blank!")
+    }
+  }
 
   $("#is-a-boss").on("click", function(e) {
     e.preventDefault()
