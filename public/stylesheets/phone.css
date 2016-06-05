@@ -1,0 +1,53 @@
+#phone-body {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5vh;
+  border-radius: 30px;
+  background-color: black;
+  width: 45vh;
+  height: 90vh;
+}
+
+#phone-screen {
+  width: 90%;
+  height: 80%;
+  position: relative;
+  top: 10%;
+  left: 5%;
+  background-color: white;
+}
+
+#phone-screen .image-wrapper img {
+  width: 50%;
+}
+
+#phone-screen .address-wrapper {
+  height: 10vh;
+  display: flex;
+  width: 100%;
+}
+
+.address-wrapper .address {
+  flex: 7 1 auto;
+  background-color: black;
+  color: white;
+}
+
+.address p {
+  margin-left: 2vh;
+  margin-top: 2vh;
+  line-height: 0.8em;
+  margin-bottom: 0;
+}
+
+.address-wrapper .directions {
+  flex: 3 1 auto;
+  background-color: red;
+  color: white;
+  text-align: center;
+}
+
+.address-wrapper .directions img {
+  margin-top: 1vh;
+  height: 5vh;
+}
