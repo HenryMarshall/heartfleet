@@ -93,13 +93,13 @@ require([
     }, 250)
   })
 
-  $("#address input").blur(function(e) {
-    $("#address").removeClass("wide")
-    $("#dispatch").addClass("cloaked")
-    window.setTimeout(function() {
-      $("#logo").removeClass("cloaked")
-    }, 800)
-  })
+  // $("#address input").blur(function(e) {
+  //   $("#address").removeClass("wide")
+  //   $("#dispatch").addClass("cloaked")
+  //   window.setTimeout(function() {
+  //     $("#logo").removeClass("cloaked")
+  //   }, 800)
+  // })
 
   $("#address").on("submit", submitAddress)
   $("#dispatch").on("click", submitAddress)
@@ -196,6 +196,15 @@ require([
       var now = new Date()
       timeToDelivery = now - eta
     }
+
+    secondsToDelivery = Math.floor(timeToDelivery / 1000)
+    var timeinterval = setInterval(function(){
+      --secondsToDelivery
+      $("#seconds").text(secondsToDelivery)
+      if(secondsToDelivery <= 0){
+        clearInterval(timeinterval);
+      }
+    },1000);
 
     $("#progress-bar .bar").animate(
       { left: [ rightmostPosition, "linear" ] },
