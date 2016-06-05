@@ -7,10 +7,9 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var postmate = require('./routes/postmate');
 
 var app = express();
-var Postmates = require('postmates');
-var postmates = new Postmates('cus_Kp8cLL8C8C0Sp-', '3fc8dbff-8687-4623-833b-75f0665eaaae');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -26,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/postmate', postmate);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -33,8 +33,6 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
-
-
 
 // production error handler
 // no stacktraces leaked to user
@@ -45,6 +43,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;
