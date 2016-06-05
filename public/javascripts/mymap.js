@@ -129,7 +129,7 @@ require([
   })
 
   $("#map").on("click", "#send-location", function(e) {
-    var href = $(this).attr("data-href")
+    var href = $(this).text("Message Sent!").attr("disabled", "disabled").attr("data-href")
     e.preventDefault()
     $.ajax({
       url: "twilio",
