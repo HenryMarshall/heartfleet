@@ -36,6 +36,21 @@ a {
 .navbar {
   height: 60px;
 }
+#progress-bar {
+  background-color: #ED1C24;
+}
+#progress-bar .bar {
+  position: fixed;
+  top: 29px;
+  left: 30px;
+  right: 180px;
+  height: 2px;
+  background-color: black;
+}
+#eta {
+  margin-right: 4px;
+  margin-top: 4px;
+}
 #address {
   width: calc(100% - 450px);
   transition: width 1s;

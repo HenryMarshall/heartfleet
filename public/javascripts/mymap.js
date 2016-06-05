@@ -118,10 +118,7 @@ require([
     $.ajax({
       url: "twilio",
       method: "POST",
-      data: {
-        phoneNumber: "+13472245274",
-        AEDlink: "https://www.google.com"
-      }
+      data: {}
     })
   })
 
@@ -159,6 +156,22 @@ require([
         console.log(error)
       }
     })
+  }
+
+  $("#eta").click(function() {
+    deliveryProgress({})
+  })
+  function deliveryProgress(response) {
+    $("#search-bar").addClass("hide")
+    $("#progress-bar").removeClass("hide")
+
+    $("#progress-bar .bar").animate()
+    // var totalWidth = $("#progress-bar").width()
+    // var maximumBarWidth = totalWidth - 210
+    var isDemo = true
+    if (isDemo) {
+
+    }
   }
 
   function doSearchValue(location) {
