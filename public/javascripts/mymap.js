@@ -101,13 +101,16 @@ require([
     }, 800)
   })
 
-  // zoom to address
   $("#address").on("submit", submitAddress)
+  $("#dispatch").on("click", submitAddress)
+
   function submitAddress(e) {
     e.preventDefault()
     var address = $("#address input").val().trim()
     if (address) {
       doSearchValue(address)
+      //sendPostmate(address)
+      getLatLong(address)
     }
     else {
       console.error("Address is blank!")
@@ -143,7 +146,6 @@ require([
       error: function(error) {
         console.error("error", error)
       }
-
     })
   })
 
@@ -238,16 +240,30 @@ require([
     var csvFile;
     $.get("/data/aeds.csv", function(res) {
       csvFile = res;
+      var result = $.csv.toObjects(csvFile);
+      var i;
+      for (i=0; i<result.length; i++) {
+        var distance = Math.sqrt(Math.pow(lat - result[i].latitude, 2) + Math.pow(lon - result[i].longitude, 2));
+        if (distance < closestDistance || closestDistance === -1) {
+          closestDistance = distance;
+          closestAED = result[i];
+        } 
+      }
+      console.log("closestAED: ", closestAED)
     });
-    var result = $.csv.toObjects(csvFile);
-    var i;
-    for (i=0; i<result.length; i++) {
-      var distance = Math.sqrt(Math.pow(lat - result[i].latitude, 2) + Math.pow(lon - result[i].longitude, 2));
-      if (distance < closestDistance || closestDistance === -1) {
-        closestDistance = distance;
-        closestAED = result[i];
-      } 
-    }
-    return closestAED;
   }
+
+  function getLatLong(address) {
+    var response = '';
+    $.get('https://maps.googleapis.com/maps/api/geocode/json?address=' +
+      encodeURIComponent(address) +
+      '&key=AIzaSyDUusw02mfbM9U9Zo5njJiVT1kKcEWM8XU', 
+      function(res) {
+        var location = res.results[0].geometry.location
+        console.log(res);
+        findNearestAED(location.lat, location.lng)
+    });
+
+  }
+
 });
