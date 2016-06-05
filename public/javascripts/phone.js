@@ -46,7 +46,10 @@ require([
         if (result[i] === null) {
         }
         if (result[i].id == id) {
-          console.log(result[i]);
+          var address = result[i].address
+          var firstCommaIndex = address.indexOf(',')
+          var addressLineBreak = address.slice(0, firstCommaIndex + 1) + '<br>' + address.slice(firstCommaIndex + 1)
+          $(".address p").html(addressLineBreak)
 
           var point = [result[i].longitude, result[i].latitude]
           callback(point)

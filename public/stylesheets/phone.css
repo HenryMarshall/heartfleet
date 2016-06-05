@@ -3,7 +3,7 @@
   margin-right: auto;
   margin-top: 5vh;
   border-radius: 30px;
-  background-color: black;
+  background-color: #111;
   width: 45vh;
   height: 90vh;
 }
@@ -17,8 +17,8 @@
   background-color: white;
 }
 
-#map {
-  height: 42vh;
+.phone-map {
+  height: 42vh!important;
 }
 
 #phone-screen .image-wrapper img {
@@ -41,18 +41,17 @@
 .address p {
   margin-left: 2vh;
   margin-top: 2vh;
-  line-height: 0.8em;
   margin-bottom: 0;
 }
 
 .address-wrapper .directions {
-  flex: 3 1 auto;
+  flex: 5 1 auto;
   background-color: red;
   color: white;
   text-align: center;
 }
 
 .address-wrapper .directions img {
-  margin-top: 1vh;
+  margin-top: 2vh;
   height: 5vh;
 }
