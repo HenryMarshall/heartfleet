@@ -53,8 +53,32 @@ require([
     e.preventDefault()
     var address = $("#address input").val()
     doSearchValue(address)
-    // maxsFunction(address)
+    sendPostmate(address)
   })
+
+  function choosenAedLocation(dropoffAddress) {
+    // TODO
+    return "Penn Station"
+  }
+
+  function sendPostmate(dropoffAddress) {
+    var pickupAddress = choosenAedLocation(dropoffAddress)
+
+    $.ajax({
+      url: "/postmate",
+      method: "POST",
+      data: {
+        pickup_address: pickupAddress,
+        dropoff_address: dropoffAddress
+      },
+      success: function(response) {
+        console.log(response)
+      },
+      error: function(error) {
+        console.log(error)
+      }
+    })
+  }
 
   function doSearchValue(location) {
 
