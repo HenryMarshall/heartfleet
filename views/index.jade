@@ -1,7 +1,19 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  p FooBar
-  p BarFoo
+  // h1= title
+  // p Welcome to #{title}
+  .row
+    .navbar.navbar-inverse.navbar-fixed-top
+      .container-fluid
+        form#address.navbar-form.navbar-left(role="search")
+          .form-group
+            input.form-control(type="text", placeholder="123")
+          button.btn.btn-default(type="submit") Submit
+        span.navbar-brand.navbar-right HeartFleet
+  .row
+    #map-container
+      #map
+  .row
+    .dispatch-wrapper
+      button.btn.btn-primary.btn-block Dispatch!
