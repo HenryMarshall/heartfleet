@@ -109,8 +109,6 @@ require([
     var address = $("#address input").val().trim()
     if (address) {
       doSearchValue(address)
-      //sendPostmate(address)
-      getLatLong(address)
     }
     else {
       console.error("Address is blank!")
@@ -123,7 +121,7 @@ require([
     var address = $("#address input").val().trim()
     if (address) {
       doSearchValue(address)
-      sendPostmate(address)
+      getLatLong(address)
     }
     else {
       console.error("Address is blank!")
@@ -149,14 +147,7 @@ require([
     })
   })
 
-  function choosenAedLocation(dropoffAddress) {
-    // TODO
-    return "Penn Station"
-  }
-
-  function sendPostmate(dropoffAddress) {
-    var pickupAddress = choosenAedLocation(dropoffAddress)
-
+  function sendPostmate(pickupAddress, dropoffAddress) {
     $.ajax({
       url: "/postmate",
       method: "POST",
@@ -210,6 +201,7 @@ require([
       { left: [ rightmostPosition, "linear" ] },
       timeToDelivery,
       function() {
+        $("#delivered-modal").modal('show')
         console.log("completed transition!")
       }
     )
@@ -234,7 +226,7 @@ require([
     search.search(location);
   }
 
-  function findNearestAED(lat, lon) {
+  function findNearestAED(dropoffAddress, lat, lon) {
     var closestAED = {};
     var closestDistance = -1;
     var csvFile;
@@ -250,6 +242,7 @@ require([
         } 
       }
       console.log("closestAED: ", closestAED)
+      sendPostmate(closestAED.address, dropoffAddress)
     });
   }
 
@@ -261,7 +254,7 @@ require([
       function(res) {
         var location = res.results[0].geometry.location
         console.log(res);
-        findNearestAED(location.lat, location.lng)
+        findNearestAED(address, location.lat, location.lng)
     });
 
   }

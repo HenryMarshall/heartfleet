@@ -6,13 +6,16 @@ block content
   .row
     #search-bar.navbar.navbar-inverse.navbar-fixed-top
       .container-fluid
+
+        // button.btn.btn-primary.btn-lg(type="button", data-toggle="modal", data-target="#delivered-modal") launch modal
+
         form#address.navbar-form.navbar-left(role="search")
           .form-group
             input.form-control(type="text", 
             placeholder="CALLER LOCATION")
 
         #logo.navbar-brand.navbar-right
-          img(src="images/logo.png" alt="HeartFleet")
+          img(src="images/logo.png", alt="HeartFleet")
 
         #dispatch.cloaked.navbar-brand.navbar-right
           .circle
@@ -31,6 +34,11 @@ block content
   .row
     #map-container
       #map
-  // .row
-  //   .dispatch-wrapper
-  //     button.btn.btn-primary.btn-block#is-a-boss Who's a boss? Max is a boss!
+
+  #delivered-modal.modal.fade(tabindex="-1", role="dialog")
+    .modal-dialog.modal-lg(role="document")
+      .modal-content
+        .modal-body
+          img(src='/images/circled.png')
+          p AED Delivered!
+          button.btn.btn-primary(data-dismiss="modal") Dismiss
