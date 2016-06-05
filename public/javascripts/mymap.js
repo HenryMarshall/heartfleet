@@ -210,7 +210,11 @@ require([
   function findNearestAED(lat, lon) {
     var closestAED = {};
     var closestDistance = -1;
-    var result = $.csv.toObjects("/data/aeds.csv");
+    var csvFile;
+    $.get("/data/aeds.csv", function(res) {
+      csvFile = res;
+    });
+    var result = $.csv.toObjects(csvFile);
     var i;
     for (i=0; i<result.length; i++) {
       var distance = Math.sqrt(Math.pow(lat - result[i].latitude, 2) + Math.pow(lon - result[i].longitude, 2));
