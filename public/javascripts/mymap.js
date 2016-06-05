@@ -149,11 +149,9 @@ require([
         robo_delivered: "00:34:00"
 
       },
-      success: function(response) {
-        console.log(response)
-      },
+      success: deliveryProgress,
       error: function(error) {
-        console.log(error)
+        console.error(error)
       }
     })
   }
@@ -162,16 +160,32 @@ require([
     deliveryProgress({})
   })
   function deliveryProgress(response) {
+    console.log(response)
+
     $("#search-bar").addClass("hide")
     $("#progress-bar").removeClass("hide")
 
-    $("#progress-bar .bar").animate()
-    // var totalWidth = $("#progress-bar").width()
-    // var maximumBarWidth = totalWidth - 210
+    var totalWidth = $("#progress-bar").width()
+    var rightmostPosition = totalWidth - 180
+
+    var timeToDelivery
     var isDemo = true
     if (isDemo) {
-
+      timeToDelivery = 30000
     }
+    else {
+      var eta = new Date(response.succesObj._quote.dropoff_eta)
+      var now = new Date()
+      timeToDelivery = now - eta
+    }
+
+    $("#progress-bar .bar").animate(
+      { left: [ rightmostPosition, "linear" ] },
+      timeToDelivery,
+      function() {
+        console.log("completed transition!")
+      }
+    )
   }
 
   function doSearchValue(location) {
@@ -192,4 +206,6 @@ require([
     //If multiple results are found, it will default and select the first.
     search.search(location);
   }
+
+  
 });
