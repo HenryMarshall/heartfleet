@@ -6,9 +6,11 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var Postmates = require('postmates');
 var postmates = new Postmates('cus_Kp8cLL8C8C0Sp-', '3fc8dbff-8687-4623-833b-75f0665eaaae');
+var twilio = require('twilio')('ACf948ff79af573ad96690bc47385448ad', 'f234fa52a77cd1fdb54b0c841e1cd7d6');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var aedLocations = require('./routes/')
 
 var app = express();
 
@@ -59,6 +61,28 @@ app.post('/postmate', function(req, res, next) {
 
 });
 
+app.post('/twilio', function(req, res, next) {
+	twilio.sendMessage({
+
+	    to: '+13472245274', //req.body.number, // Any number Twilio can deliver to
+	    from: '+13343924205', // A number you bought from Twilio and can use for outbound communication
+	    body: 'Like A Boss' //req.body.AEDlink// body of the SMS message
+
+	}, function(err, responseData) { //this function is executed when a response is received from Twilio
+
+		if (!err) { // "err" is an error received during the request, if any
+
+	        // "responseData" is a JavaScript object containing data received from Twilio.
+	        // A sample response from sending an SMS message is here (click "JSON" to see how the data appears in JavaScript):
+	        // http://www.twilio.com/docs/api/rest/sending-sms#example-1
+
+	        console.log(responseData.from); // outputs "+14506667788"
+	        console.log(responseData.body); // outputs "word to your mother."
+
+	    }
+	});
+
+});
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
