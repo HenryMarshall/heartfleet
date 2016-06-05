@@ -106,7 +106,8 @@ require([
     var address = $("#address input").val().trim()
     if (address) {
       doSearchValue(address)
-      sendPostmate(address)
+      //sendPostmate(address)
+      getLatLong(address)
     }
     else {
       console.error("Address is blank!")
@@ -122,8 +123,8 @@ require([
         phoneNumber: "+13472245274",
         AEDlink: "https://www.google.com"
       }
-    })
-  })
+    });
+  });
 
   function choosenAedLocation(dropoffAddress) {
     // TODO
@@ -158,7 +159,7 @@ require([
       error: function(error) {
         console.log(error)
       }
-    })
+    });
   }
 
   function doSearchValue(location) {
@@ -198,4 +199,16 @@ require([
     }
     return closestAED;
   }
+
+  function getLatLong(address) {
+    var response = '';
+    $.get('https://maps.googleapis.com/maps/api/geocode/json?address=' +
+      encodeURIComponent(address) +
+      '&key=AIzaSyDUusw02mfbM9U9Zo5njJiVT1kKcEWM8XU', 
+      function(res) {
+        console.log(res);
+    });
+
+  }
+
 });
