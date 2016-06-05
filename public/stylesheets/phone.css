@@ -10,15 +10,20 @@
 
 #phone-screen {
   width: 90%;
-  height: 80%;
+  height: 72vh;
   position: relative;
-  top: 10%;
+  top: 9vh;
   left: 5%;
   background-color: white;
 }
 
+#map {
+  height: 42vh;
+}
+
 #phone-screen .image-wrapper img {
   width: 50%;
+  height: 20vh;
 }
 
 #phone-screen .address-wrapper {
