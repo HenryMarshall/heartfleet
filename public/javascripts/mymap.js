@@ -179,4 +179,6 @@ require([
     //If multiple results are found, it will default and select the first.
     search.search(location);
   }
+
+  
 });

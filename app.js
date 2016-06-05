@@ -10,7 +10,7 @@ var twilio = require('twilio')('ACf948ff79af573ad96690bc47385448ad', 'f234fa52a7
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var aedLocations = require('./routes/')
+var aedLocations = require('./routes/aedLocations');
 
 var app = express();
 
@@ -28,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/aedLocations', aedLocations);
 
 app.post('/postmate', function(req, res, next) {
 	var quote = {
