@@ -1,4 +1,5 @@
 require([
+  // Map/Search stuff
   "esri/map",
   "esri/dijit/Search",
   "esri/symbols/Font",
@@ -9,6 +10,12 @@ require([
   "esri/symbols/SimpleLineSymbol",
   "esri/Color",
   "esri/symbols/TextSymbol",
+
+  // CSV specific stuff
+  "esri/layers/CSVLayer",
+  "esri/renderers/SimpleRenderer",
+  "esri/InfoTemplate",
+  "esri/urlUtils",
 
   "dijit/registry",
   "dijit/form/Button",
@@ -27,17 +34,42 @@ require([
   SimpleLineSymbol,
   Color,
   TextSymbol,
+
+  // CSV specifc stuff
+  CSVLayer,
+  SimpleRenderer,
+  InfoTemplate,
+  urlUtils,
+
   registry,
   Button,
   parser
 ) {
   parser.parse();
 
+  // urlUtils.addProxyRule({
+  //   proxyUrl: "/proxy/",
+  //   urlPrefix: "earthquake.usgs.gov"
+  // });
+
   var map = new Map("map", {
     basemap: "dark-gray",
     center: [-74, 40.728], // lon, lat
-    zoom: 12
+    zoom: 14
   });
+
+  // var csv = new CSVLayer("/data/quakes.csv", {
+  //   copyright: "USGS.gov"
+  // });
+  var csv = new CSVLayer("/data/aeds.csv", {
+    copyright: "MIT"
+  })
+  var marker = new PictureMarkerSymbol("/images/aed.png", 37, 24)
+  var renderer = new SimpleRenderer(marker);
+  csv.setRenderer(renderer);
+  var template = new InfoTemplate("${name}", "${address}");
+  csv.setInfoTemplate(template);
+  map.addLayer(csv);
 
   //Do not provide a srcNode dom for the Search widget as the UI is not displayed. 
 
@@ -54,6 +86,15 @@ require([
     var address = $("#address input").val()
     doSearchValue(address)
     sendPostmate(address)
+  })
+
+  $("#is-a-boss").on("click", function(e) {
+    e.preventDefault()
+    $.ajax({
+      url: "twilio",
+      method: "POST",
+      data: {}
+    })
   })
 
   function choosenAedLocation(dropoffAddress) {
@@ -95,16 +136,7 @@ require([
   function doSearchValue(location) {
 
     //highlight symbol
-    var sms = new SimpleMarkerSymbol(
-      SimpleMarkerSymbol.STYLE_CIRCLE,
-      12,
-      new SimpleLineSymbol(
-        SimpleLineSymbol.STYLE_SOLID,
-        new Color([255, 0, 0]),
-        0.8
-      ),
-      new Color([0, 0, 0, 0.35])
-    );
+    var sms = new PictureMarkerSymbol("/images/callerLocation.png", 32, 48)
 
     //label text symbol
     var ls = new TextSymbol()
