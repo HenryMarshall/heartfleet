@@ -68,8 +68,20 @@ require([
       url: "/postmate",
       method: "POST",
       data: {
+        manifest: "AED",
+        pickup_name: "AED",
         pickup_address: pickupAddress,
-        dropoff_address: dropoffAddress
+        pickup_phone_number: "555-555-5555",
+        pickup_notes: "This is an AED!",
+        dropoff_name: "Victim",
+        dropoff_address: dropoffAddress,
+        dropoff_phone_number: "415-555-1234", //really want a real one
+        dropoff_notes: "Optional note to ring the bell", //maybe nice, not that big a deal
+        robo_pickup: "00:10:00",
+        robo_pickup_complete: "00:20:00",
+        robo_dropoff: "00:21:00",
+        robo_delivered: "00:34:00"
+
       },
       success: function(response) {
         console.log(response)

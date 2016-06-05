@@ -28,13 +28,33 @@ app.use('/', routes);
 app.use('/users', users);
 
 app.post('/postmate', function(req, res, next) {
-	var delivery = {
+	var quote = {
 		pickup_address: req.body.pickup_address,
 		dropoff_address: req.body.dropoff_address
   	};
   	
-	postmates.quote(delivery, function(err, response) {
-		res.send({ quote: response.body });
+	postmates.quote(quote, function(err, response) {
+		var delivery = {
+		  manifest: req.body.manifest,
+		  pickup_name: req.body.pickup_name,
+		  pickup_address: req.body.pickup_address,
+		  pickup_phone_number: req.body.pickup_phone_number,
+		  pickup_notes: req.body.pickup_notes,
+		  dropoff_name: req.body.dropoff_name,
+		  dropoff_address: req.body.dropoff_address,
+		  dropoff_phone_number: req.body.dropoff_phone_number,
+		  dropoff_notes: req.body.dropoff_notes,
+		  quote_id: response.body.quote_id
+		}
+
+		postmates.new(delivery, function(err, response2) {
+			var successObj = {
+				_delivery: response2.body,
+				_quote: response.body
+			}
+  			res.send({ successObj });
+		});
+
 	});
 
 });
