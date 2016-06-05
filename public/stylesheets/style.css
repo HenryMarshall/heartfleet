@@ -19,6 +19,10 @@ a {
   right: 20px;
 }
 
+.dispatch-wrapper > .btn {
+  background-color: #ED1C24;
+}
+
 #map-container {
   margin-top: 50px;
   position: relative;
@@ -27,3 +31,26 @@ a {
   height: calc(100vh - 50px);
   width: 100%;
 }
+
+/* navbar */
+.navbar {
+  height: 60px;
+}
+.navbar-brand>img {
+  height: 32px;
+  display: inline-block;
+}
+
+#address input {
+  background-color: transparent;
+  -webkit-text-fill-color: white;
+  color: red;
+  margin-top: 6px;
+  width: 450px;
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid white;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
