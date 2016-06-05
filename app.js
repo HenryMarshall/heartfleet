@@ -4,10 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var Postmates = require('postmates');
+var postmates = new Postmates('cus_Kp8cLL8C8C0Sp-', '3fc8dbff-8687-4623-833b-75f0665eaaae');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var postmate = require('./routes/postmate');
 
 var app = express();
 
@@ -25,7 +26,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/postmate', postmate);
+
+app.post('/postmate', function(req, res, next) {
+	var delivery = {
+		pickup_address: req.body.pickup_address,
+		dropoff_address: req.body.dropoff_address
+  	};
+  	
+	postmates.quote(delivery, function(err, response) {
+		res.send({ quote: response.body });
+	});
+
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
